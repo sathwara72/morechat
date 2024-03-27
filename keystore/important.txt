@@ -1,0 +1,10 @@
+For jks:-
+file:-morechat
+Keystorepassword : - 9924938288
+Key alias :- morechat
+Key Password : - 9924938288
+
+VersionCode : - 21
+Version Name : - 3.0
+
+

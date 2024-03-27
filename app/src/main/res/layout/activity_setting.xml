@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgMain">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:elevation="0dp"
+            app:subtitleTextColor="@color/black"
+            app:titleTextColor="@color/black"
+            app:navigationIcon="@drawable/ic_menu_back"
+            android:background="@color/colorPrimaryDark"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:background="@color/bgMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appBarLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="5dp"
+            android:layout_height="wrap_content">
+
+            <include
+                android:visibility="gone"
+                layout="@layout/item_premium"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="8dp"
+            android:layout_height="20dp">
+
+            <TextView
+                android:textSize="12dp"
+                android:textColor="@color/black"
+                android:gravity="left|center_vertical|center_horizontal|center"
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:text="General" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:alpha="0.1"
+                android:background="@color/black"/>
+
+        </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:padding="8dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:background="@color/bgMain"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:padding="7dp"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="10dp"
+                            app:srcCompat="@drawable/ic_menu_info" />
+
+                        <TextView
+                            android:textSize="16dp"
+                            android:textColor="@color/black"
+                            android:gravity="left|center_vertical|center_horizontal|center"
+                            android:padding="2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/version_label" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:id="@+id/tvCurrentVersion"
+                        android:padding="2dp"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="V 1.2"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textAlignment="center" />
+
+                </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_info" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/version_label" />
+                </LinearLayout>
+
+                <TextView
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="V 1.2"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:tint="@color/black"
+                        app:srcCompat="@drawable/ic_menu_music" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Tap Sound" />
+                </LinearLayout>
+
+                <Switch
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:id="@+id/switchTapSound"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_notify" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Push Notification" />
+                </LinearLayout>
+
+                <Switch
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:id="@+id/switchButtonNotification"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_moon_stars" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/menu_night" />
+                </LinearLayout>
+
+                <Switch
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:id="@+id/switchDarkMode"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:layout_alignParentEnd="true"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="8dp"
+                android:layout_height="20dp">
+
+                <TextView
+                    android:textSize="12dp"
+                    android:textColor="@color/black"
+                    android:gravity="left|center_vertical|center_horizontal|center"
+                    android:padding="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:text="About" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:alpha="0.1"
+                    android:background="@color/black"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/moreAppsBtn"
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_more_apps" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="More Apps" />
+                </LinearLayout>
+
+                <ImageView
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/followUsBtn"
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_follow" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Follow us on Social Media" />
+                </LinearLayout>
+
+                <ImageView
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/aboutUsBtn"
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_info" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="About us" />
+                </LinearLayout>
+
+                <ImageView
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:padding="8dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutPolicyPrivacy"
+                    android:orientation="horizontal"
+                    android:background="@color/bgMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="7dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="10dp"
+                        app:srcCompat="@drawable/ic_menu_privacy" />
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:gravity="left|center_vertical|center_horizontal|center"
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/policy_privacy" />
+                </LinearLayout>
+
+                <ImageView
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_menu_arrow"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:textAlignment="center" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
