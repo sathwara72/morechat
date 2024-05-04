@@ -126,15 +126,12 @@ public class QuoteActivity extends AppCompatActivity {
         });
 
         //Copy Button
-        ll_copy_quote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = qte.getQuote() + "- " + qte.getName();
-                YmgTools.copyText(QuoteActivity.this,text);
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.copy_msg), Toast.LENGTH_LONG).show();
-                startSound();
-                adsManager.showInterstitialAd();
-            }
+        ll_copy_quote.setOnClickListener(v -> {
+            String text = qte.getQuote() + "- " + qte.getName() + "\n" + "https://play.google.com/store/apps/details?id=" + getPackageName();
+            YmgTools.copyText(QuoteActivity.this,text);
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.copy_msg), Toast.LENGTH_LONG).show();
+            startSound();
+            adsManager.showInterstitialAd();
         });
 
         //Change Random Backgrounds

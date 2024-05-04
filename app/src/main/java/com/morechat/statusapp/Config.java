@@ -8,7 +8,7 @@ public class Config {
     public static final boolean AD_STATUS = true;
     //admob - unity - startapp - ironsource - wortise - applovin_discovery - google_ad_manager - fan - applovin_max
     public static String AD_NETWORK = "admob";
-    public static final String BACKUP_AD_NETWORK = "fan";
+    public static final String BACKUP_AD_NETWORK = "";
     public static String NATIVE_STYLE = "default";
     public static final String STYLE_NEWS = "news";
     public static final String STYLE_RADIO = "radio";

@@ -10,7 +10,7 @@ android {
         applicationId "com.morechat.statusapp"
         minSdk 24
         targetSdk 34
-        versionCode 23
+        versionCode 24
         versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
