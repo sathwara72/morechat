@@ -252,20 +252,12 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1.0">
 
-                    <com.like.LikeButton
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/favBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:icon_type="heart"
-                        app:circle_start_color="@color/dot1"
-                        app:like_drawable="@drawable/ic_menu_heart_red"
-                        app:unlike_drawable="@drawable/ic_menu_heart_black"
-                        app:dots_primary_color="@color/dot1"
-                        app:dots_secondary_color="@color/dot3"
-                        app:circle_end_color="@color/dot2"
-                        app:icon_size="25dp"
-                        app:anim_scale_factor="2"/>
-
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_menu_heart_black"
+                        android:contentDescription="Like Button" />
 
                     <TextView
                         android:gravity="center"

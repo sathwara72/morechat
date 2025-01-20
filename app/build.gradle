@@ -48,13 +48,14 @@ dependencies {
     implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
     implementation 'com.onesignal:OneSignal:4.8.8'
 
-    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+//    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'com.airbnb.android:lottie:6.1.0'
 
     implementation 'com.github.iamyashchouhan:ymg-developers-ads-networks-sdk:1.0.0'
     implementation 'com.github.iamyashchouhan:YMGToolsSDK:1.0.3'
 
-    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
+    implementation 'io.github.vadiole:colorpicker:1.0.4'
+
     //Crop Images
     implementation 'com.github.yalantis:ucrop:2.2.2'
     //Real time Permission

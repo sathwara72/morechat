@@ -23,12 +23,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
 import com.morechat.statusapp.Model.Quote;
 import com.morechat.statusapp.Utils.AdsManager;
 import com.morechat.statusapp.Utils.AdsPref;
@@ -57,7 +56,7 @@ public class QuoteActivity extends AppCompatActivity {
 
     SharedPreferences sharedPrefs;
     Toolbar toolbar;
-    LikeButton favBtn;
+    AppCompatImageView favBtn;
     LinearLayout ll_quote_save, ll_copy_quote, ll_quote_share;
     RelativeLayout relativeLayout;
     private int STORAGE_PERMISSION_CODE = 1;
@@ -259,33 +258,50 @@ public class QuoteActivity extends AppCompatActivity {
         fav = qte.getFav();
 
         if (fav.equals("0")) {
-            favBtn.setLiked(false);
+            favBtn.setImageResource(R.drawable.ic_menu_heart_black);
+//            favBtn.setLiked(false);
             tv_like_quote_text.setText("Like");
 
         }
         if (fav.equals("1")) {
-            favBtn.setLiked(true);
+            favBtn.setImageResource(R.drawable.ic_menu_heart_red);
+//            favBtn.setLiked(true);
             tv_like_quote_text.setText("Liked");
 
         }
 
-        //Like Button
-        favBtn.setOnLikeListener(new OnLikeListener() {
+        favBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void liked(LikeButton likeButton) {
-                setLikeBtn();
-                startSound();
-                tv_like_quote_text.setText("Liked");
-
-            }
-
-            @Override
-            public void unLiked(LikeButton likeButton) {
-                setLikeBtn();
-                startSound();
-                tv_like_quote_text.setText("Like");
+            public void onClick(View v) {
+                if (fav.equals("1")) {
+                    setLikeBtn();
+                    startSound();
+                    tv_like_quote_text.setText("Like");
+                }else {
+                    setLikeBtn();
+                    startSound();
+                    tv_like_quote_text.setText("Liked");
+                }
             }
         });
+
+//        //Like Button
+//        favBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void liked(LikeButton likeButton) {
+//                setLikeBtn();
+//                startSound();
+//                tv_like_quote_text.setText("Liked");
+//
+//            }
+//
+//            @Override
+//            public void unLiked(LikeButton likeButton) {
+//                setLikeBtn();
+//                startSound();
+//                tv_like_quote_text.setText("Like");
+//            }
+//        });
 
         if(mode.equals("qteday")){
         }
@@ -413,11 +429,11 @@ public class QuoteActivity extends AppCompatActivity {
         if (qte.getFav().equals("0")) {
             qte.setFav("1");
             db.updateQuote(qte);
-            favBtn.setLiked(true);
+            favBtn.setImageResource(R.drawable.ic_menu_heart_red);
         } else if (qte.getFav().equals("1")) {
             qte.setFav("0");
             db.updateQuote(qte);
-            favBtn.setLiked(false);
+            favBtn.setImageResource(R.drawable.ic_menu_heart_black);
         }
     }
 

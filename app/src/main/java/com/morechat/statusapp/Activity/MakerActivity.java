@@ -43,11 +43,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentManager;
+
 import com.bumptech.glide.Glide;
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.morechat.statusapp.Utils.AdsManager;
 import com.morechat.statusapp.Utils.AdsPref;
 import com.morechat.statusapp.Utils.PrefManager;
@@ -58,6 +56,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import vadiole.colorpicker.ColorModel;
+import vadiole.colorpicker.ColorPickerDialog;
 
 public class MakerActivity extends AppCompatActivity {
 
@@ -107,7 +108,7 @@ public class MakerActivity extends AppCompatActivity {
         adsPref = new AdsPref(this);
         adsManager = new AdsManager(this);
         adsManager.loadBannerAd(true);
-        adsManager.loadInterstitialAd(true,adsPref.getInterstitialAdInterval());
+        adsManager.loadInterstitialAd(true, adsPref.getInterstitialAdInterval());
         adsManager.loadRewardedAd();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -126,19 +127,19 @@ public class MakerActivity extends AppCompatActivity {
         rlBackground = findViewById(R.id.idForSaving);
         backImage = findViewById(R.id.imageView);
         tvMaker = findViewById(R.id.editText);
-        tvSize =  findViewById(R.id.textSizeClickCardView);
+        tvSize = findViewById(R.id.textSizeClickCardView);
         tvColor = findViewById(R.id.textColorClickCardView);
-        tvFont =  findViewById(R.id.textFontClickCardView);
-        tvAlign =  findViewById(R.id.textAlignClickCardView);
-        tvPadding =  findViewById(R.id.textPaddingClickCardView);
-        tvStyle =  findViewById(R.id.textStyleClickCardView);
+        tvFont = findViewById(R.id.textFontClickCardView);
+        tvAlign = findViewById(R.id.textAlignClickCardView);
+        tvPadding = findViewById(R.id.textPaddingClickCardView);
+        tvStyle = findViewById(R.id.textStyleClickCardView);
         tvShadow = findViewById(R.id.textShadowClickCardView);
         tvGradiant = findViewById(R.id.gradientClickCardView);
-        tvBackgroundColor =  findViewById(R.id.bgColorClickCardView);
-        tvBackgroundImage =  findViewById(R.id.imageClickCardView);
-        tvOpecity =  findViewById(R.id.imageOpacityClickCirdView);
-        tvSaveImage =findViewById(R.id.saveClickCardView);
-        tvShare =  findViewById(R.id.shareClickCardView);
+        tvBackgroundColor = findViewById(R.id.bgColorClickCardView);
+        tvBackgroundImage = findViewById(R.id.imageClickCardView);
+        tvOpecity = findViewById(R.id.imageOpacityClickCirdView);
+        tvSaveImage = findViewById(R.id.saveClickCardView);
+        tvShare = findViewById(R.id.shareClickCardView);
         tvPrime = findViewById(R.id.aboutClickCardView);
         watermarkRelative = findViewById(R.id.watermarkRelative);
         watermarkIcon = findViewById(R.id.watermarkIcon);
@@ -146,16 +147,16 @@ public class MakerActivity extends AppCompatActivity {
 
         String quote = getIntent().getExtras().getString("quote");
         imagesIndex = getIntent().getExtras().getInt("image");
-        if(quote != null){
+        if (quote != null) {
             tvMaker.setText(quote);
-            if (imagesIndex == 0){
+            if (imagesIndex == 0) {
                 backImage.setVisibility(View.GONE);
-            }else {
+            } else {
                 loadImages();
                 viewLayout.setVisibility(View.VISIBLE);
                 tvMaker.setTextColor(getResources().getColor(R.color.white));
             }
-        }else {
+        } else {
             tvMaker.setText("");
 
         }
@@ -185,12 +186,9 @@ public class MakerActivity extends AppCompatActivity {
         });
 
         //textView Color // app is created by Sathwara InfoTech
-        tvColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //new AmbilWarnaDialog (MakerActivity.this, V, new u()).show();
-                chooseTextColor(false);
-            }
+        tvColor.setOnClickListener(v -> {
+            //new AmbilWarnaDialog (MakerActivity.this, V, new u()).show();
+            chooseTextColor(false);
         });
 
         //textView fonts
@@ -405,6 +403,7 @@ public class MakerActivity extends AppCompatActivity {
                 });
 
             }
+
             class paddingLeft implements SeekBar.OnSeekBarChangeListener {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -423,6 +422,7 @@ public class MakerActivity extends AppCompatActivity {
 
                 }
             }
+
             class paddingRight implements SeekBar.OnSeekBarChangeListener {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -441,6 +441,7 @@ public class MakerActivity extends AppCompatActivity {
 
                 }
             }
+
             class paddingTop implements SeekBar.OnSeekBarChangeListener {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -459,6 +460,7 @@ public class MakerActivity extends AppCompatActivity {
 
                 }
             }
+
             class paddingBottom implements SeekBar.OnSeekBarChangeListener {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -509,17 +511,14 @@ public class MakerActivity extends AppCompatActivity {
         });
 
         //textView Shadow
-        tvShadow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shade++;
-                int i = shade % 2;
-                EditText editText = tvMaker;
-                if (i == 0) {
-                    editText.setShadowLayer(0.0f, 0.0f, 0.0f, 0);
-                } else {
-                    editText.setShadowLayer(6.5f, -1.0f, -4.0f, -7829368);
-                }
+        tvShadow.setOnClickListener(v -> {
+            shade++;
+            int i = shade % 2;
+            EditText editText = tvMaker;
+            if (i == 0) {
+                editText.setShadowLayer(0.0f, 0.0f, 0.0f, 0);
+            } else {
+                editText.setShadowLayer(6.5f, -1.0f, -4.0f, -7829368);
             }
         });
 
@@ -533,82 +532,119 @@ public class MakerActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ColorPickerDialogBuilder
-                                .with(MakerActivity.this)
-                                .setTitle("Choose color")
-                                .initialColor(currentColor)
-                                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                                .density(12)
 
-                                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                                    @Override
-                                    public void onColorSelected(int selectedColor) {
+                        // Create and show Color Picker dialog
+                        ColorPickerDialog colorPicker = new ColorPickerDialog.Builder()
+                                .setInitialColor(currentColor) // Set the initial selected color
+                                .setColorModel(ColorModel.RGB) // Set color model (ARGB, RGB, AHSV, or HSV)
+                                .setColorModelSwitchEnabled(true) // Allow switching between color models
+                                .setButtonOkText(android.R.string.ok) // OK button text
+                                .setButtonCancelText(android.R.string.cancel) // Cancel button text
+                                .onColorSelected(color -> {
+                                    // Handle selected color
+                                    System.out.println("Selected color: #" + Integer.toHexString(color).toUpperCase());
+                                    X = color;
+                                    button.setBackgroundColor(X);
+                                    GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X, Y});
+                                    gradientDrawable.setCornerRadius(0.0f);
+                                    rlBackground.setBackground(gradientDrawable);
+                                })
+                                .create();
 
-                                        X = selectedColor;
-                                        button.setBackgroundColor(X);
-                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
-                                        gradientDrawable.setCornerRadius(0.0f);
-                                        rlBackground.setBackground(gradientDrawable);
-                                    }
-                                })
-                                .setPositiveButton("ok", new ColorPickerClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                        X = selectedColor;
-                                        button.setBackgroundColor(X);
-                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
-                                        gradientDrawable.setCornerRadius(0.0f);
-                                        rlBackground.setBackground(gradientDrawable);
-                                    }
-                                })
-                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .build()
-                                .show();
+                        // Show dialog
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        colorPicker.show(fragmentManager, "color_picker");
+
+//                        ColorPickerDialogBuilder
+//                                .with(MakerActivity.this)
+//                                .setTitle("Choose color")
+//                                .initialColor(currentColor)
+//                                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                                .density(12)
+//
+//                                .setOnColorSelectedListener(new OnColorSelectedListener() {
+//                                    @Override
+//                                    public void onColorSelected(int selectedColor) {
+//
+//
+//                                    }
+//                                })
+//                                .setPositiveButton("ok", new ColorPickerClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                                        X = selectedColor;
+//                                        button.setBackgroundColor(X);
+//                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
+//                                        gradientDrawable.setCornerRadius(0.0f);
+//                                        rlBackground.setBackground(gradientDrawable);
+//                                    }
+//                                })
+//                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                })
+//                                .build()
+//                                .show();
                     }
                 });
 
                 button2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ColorPickerDialogBuilder
-                                .with(MakerActivity.this)
-                                .setTitle("Choose color")
-                                .initialColor(currentColor)
-                                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                                .density(12)
 
-                                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                                    @Override
-                                    public void onColorSelected(int selectedColor) {
+                        // Create and show Color Picker dialog
+                        ColorPickerDialog colorPicker = new ColorPickerDialog.Builder()
+                                .setInitialColor(currentColor) // Set the initial selected color
+                                .setColorModel(ColorModel.RGB) // Set color model (ARGB, RGB, AHSV, or HSV)
+                                .setColorModelSwitchEnabled(true) // Allow switching between color models
+                                .setButtonOkText(android.R.string.ok) // OK button text
+                                .setButtonCancelText(android.R.string.cancel) // Cancel button text
+                                .onColorSelected(color -> {
+                                    // Handle selected color
+                                    Y = color;
+                                    button2.setBackgroundColor(Y);
+                                    GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X, Y});
+                                    gradientDrawable.setCornerRadius(0.0f);
+                                    rlBackground.setBackground(gradientDrawable);
+                                })
+                                .create();
 
-                                        Y = selectedColor;
-                                        button2.setBackgroundColor(Y);
-                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
-                                        gradientDrawable.setCornerRadius(0.0f);
-                                        rlBackground.setBackground(gradientDrawable);
-                                    }
-                                })
-                                .setPositiveButton("ok", new ColorPickerClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                        Y = selectedColor;
-                                        button2.setBackgroundColor(Y);
-                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
-                                        gradientDrawable.setCornerRadius(0.0f);
-                                        rlBackground.setBackground(gradientDrawable);
-                                    }
-                                })
-                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                    }
-                                })
-                                .build()
-                                .show();
+                        // Show dialog
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        colorPicker.show(fragmentManager, "color_picker");
+
+//                        ColorPickerDialogBuilder
+//                                .with(MakerActivity.this)
+//                                .setTitle("Choose color")
+//                                .initialColor(currentColor)
+//                                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                                .density(12)
+//
+//                                .setOnColorSelectedListener(new OnColorSelectedListener() {
+//                                    @Override
+//                                    public void onColorSelected(int selectedColor) {
+//
+//
+//                                    }
+//                                })
+//                                .setPositiveButton("ok", new ColorPickerClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                                        Y = selectedColor;
+//                                        button2.setBackgroundColor(Y);
+//                                        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{X,Y});
+//                                        gradientDrawable.setCornerRadius(0.0f);
+//                                        rlBackground.setBackground(gradientDrawable);
+//                                    }
+//                                })
+//                                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                })
+//                                .build()
+//                                .show();
                     }
                 });
                 ((Button) findViewById(R.id.gradientDoneButton)).setOnClickListener(new View.OnClickListener() {
@@ -690,11 +726,11 @@ public class MakerActivity extends AppCompatActivity {
                         Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 rlBackground.draw(canvas);
-                YmgTools.saveImage(MakerActivity.this,bitmap,"best_status_"+System.currentTimeMillis());
+                YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
                 if (ContextCompat.checkSelfPermission(MakerActivity.this,
                         Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    YmgTools.saveImage(MakerActivity.this,bitmap,"best_status_"+System.currentTimeMillis());
-                }else{
+                    YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
+                } else {
                     Toast.makeText(MakerActivity.this, "Please Allow Storage Permission", Toast.LENGTH_SHORT).show();
                 }
                 adsManager.showInterstitialAd();
@@ -742,12 +778,12 @@ public class MakerActivity extends AppCompatActivity {
 
         dialog.setContentView(R.layout.dialog_watermark);
 
-        LinearLayout mbtnWatch =dialog.findViewById(R.id.mbtnWatch);
+        LinearLayout mbtnWatch = dialog.findViewById(R.id.mbtnWatch);
         LinearLayout mbtnNo = dialog.findViewById(R.id.mbtnNo);
         mbtnWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adsManager.showRewardedAd(MakerActivity.this, watermarkRelative,watermarkIcon, dialog);
+                adsManager.showRewardedAd(MakerActivity.this, watermarkRelative, watermarkIcon, dialog);
             }
         });
         mbtnNo.setOnClickListener(new View.OnClickListener() {
@@ -806,7 +842,7 @@ public class MakerActivity extends AppCompatActivity {
             intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
             intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
             showImagePickerActivityResultLauncher.launch(intent);
-        }else{
+        } else {
             requestCameraPermission();
         }
     }
@@ -822,20 +858,20 @@ public class MakerActivity extends AppCompatActivity {
             intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
             intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
             showImagePickerActivityResultLauncher.launch(intent);
-        }else{
+        } else {
             requestStoragePermission();
         }
     }
 
     private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity)this,Manifest.permission.READ_EXTERNAL_STORAGE)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity)MakerActivity.this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+                            ActivityCompat.requestPermissions((Activity) MakerActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -845,20 +881,21 @@ public class MakerActivity extends AppCompatActivity {
                         }
                     }).create().show();
 
-        }else {
-            ActivityCompat.requestPermissions((Activity)this,new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},STORAGE_PERMISSION_CODE);
+        } else {
+            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
         }
     }
+
     private void requestCameraPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity)this,Manifest.permission.CAMERA)){
+        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this, Manifest.permission.CAMERA)) {
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed")
-                    .setPositiveButton("Ok", (dialog, which) -> ActivityCompat.requestPermissions((Activity)MakerActivity.this,new String[] {Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE))
+                    .setPositiveButton("Ok", (dialog, which) -> ActivityCompat.requestPermissions((Activity) MakerActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE))
                     .setNegativeButton("cancel", (dialog, which) -> dialog.dismiss()).create().show();
 
-        }else {
-            ActivityCompat.requestPermissions((Activity)this,new String[] {Manifest.permission.CAMERA},CAMERA_PERMISSION_CODE);
+        } else {
+            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
 
@@ -872,52 +909,51 @@ public class MakerActivity extends AppCompatActivity {
 
     private void loadImages() {
         int numOfImages = 41;
-        images = new int[ numOfImages ];
-        images[ 0 ] = R.drawable.img1;
-        images[ 1 ] = R.drawable.img2;
-        images[ 2 ] = R.drawable.img3;
-        images[ 3 ] = R.drawable.gradient1;
-        images[ 4 ] = R.drawable.img4;
-        images[ 5 ] = R.drawable.img5;
-        images[ 6 ] = R.drawable.img6;
-        images[ 7 ] = R.drawable.gradient2;
-        images[ 8 ] = R.drawable.img7;
-        images[ 9 ] = R.drawable.img8;
-        images[ 10 ] = R.drawable.img9;
-        images[ 11 ] = R.drawable.gradient3;
-        images[ 12 ] = R.drawable.img10;
-        images[ 13 ] = R.drawable.img11;
-        images[ 14 ] = R.drawable.img12;
-        images[ 15 ] = R.drawable.gradient4;
-        images[ 16 ] = R.drawable.img13;
-        images[ 17 ] = R.drawable.img14;
-        images[ 18 ] = R.drawable.img15;
-        images[ 19 ] = R.drawable.gradient5;
-        images[ 20 ] = R.drawable.img16;
-        images[ 21 ] = R.drawable.img17;
-        images[ 22 ] = R.drawable.img18;
-        images[ 23 ] = R.drawable.gradient6;
-        images[ 24 ] = R.drawable.img19;
-        images[ 25 ] = R.drawable.img20;
-        images[ 26 ] = R.drawable.img21;
-        images[ 27 ] = R.drawable.gradient7;
-        images[ 28 ] = R.drawable.img22;
-        images[ 29 ] = R.drawable.img23;
-        images[ 30 ] = R.drawable.img24;
-        images[ 31 ] = R.drawable.gradient8;
-        images[ 32 ] = R.drawable.img25;
-        images[ 33 ] = R.drawable.img26;
-        images[ 34 ] = R.drawable.img27;
-        images[ 35 ] = R.drawable.gradient9;
-        images[ 36 ] = R.drawable.img28;
-        images[ 37 ] = R.drawable.img29;
-        images[ 38 ] = R.drawable.img30;
-        images[ 39 ] = R.drawable.gradient10;
-        images[ 40 ] = R.drawable.img31;
+        images = new int[numOfImages];
+        images[0] = R.drawable.img1;
+        images[1] = R.drawable.img2;
+        images[2] = R.drawable.img3;
+        images[3] = R.drawable.gradient1;
+        images[4] = R.drawable.img4;
+        images[5] = R.drawable.img5;
+        images[6] = R.drawable.img6;
+        images[7] = R.drawable.gradient2;
+        images[8] = R.drawable.img7;
+        images[9] = R.drawable.img8;
+        images[10] = R.drawable.img9;
+        images[11] = R.drawable.gradient3;
+        images[12] = R.drawable.img10;
+        images[13] = R.drawable.img11;
+        images[14] = R.drawable.img12;
+        images[15] = R.drawable.gradient4;
+        images[16] = R.drawable.img13;
+        images[17] = R.drawable.img14;
+        images[18] = R.drawable.img15;
+        images[19] = R.drawable.gradient5;
+        images[20] = R.drawable.img16;
+        images[21] = R.drawable.img17;
+        images[22] = R.drawable.img18;
+        images[23] = R.drawable.gradient6;
+        images[24] = R.drawable.img19;
+        images[25] = R.drawable.img20;
+        images[26] = R.drawable.img21;
+        images[27] = R.drawable.gradient7;
+        images[28] = R.drawable.img22;
+        images[29] = R.drawable.img23;
+        images[30] = R.drawable.img24;
+        images[31] = R.drawable.gradient8;
+        images[32] = R.drawable.img25;
+        images[33] = R.drawable.img26;
+        images[34] = R.drawable.img27;
+        images[35] = R.drawable.gradient9;
+        images[36] = R.drawable.img28;
+        images[37] = R.drawable.img29;
+        images[38] = R.drawable.img30;
+        images[39] = R.drawable.gradient10;
+        images[40] = R.drawable.img31;
 
-        backImage.setBackgroundResource(images[ imagesIndex ]);
+        backImage.setBackgroundResource(images[imagesIndex]);
     }
-
 
 
     //Share image tool
@@ -941,70 +977,103 @@ public class MakerActivity extends AppCompatActivity {
 
     //choose text colors
     private void chooseTextColor(boolean supportAlpha) {
-        ColorPickerDialogBuilder
-                .with(this)
-                .setTitle("Choose color")
-                .initialColor(currentColor)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
+        // Create and show Color Picker dialog
+        ColorPickerDialog colorPicker = new ColorPickerDialog.Builder()
+                .setInitialColor(currentColor) // Set the initial selected color
+                .setColorModel(ColorModel.RGB) // Set color model (ARGB, RGB, AHSV, or HSV)
+                .setColorModelSwitchEnabled(true) // Allow switching between color models
+                .setButtonOkText(android.R.string.ok) // OK button text
+                .setButtonCancelText(android.R.string.cancel) // Cancel button text
+                .onColorSelected(color -> {
+                    // Handle selected color
+                    currentColor = color;
+                    tvMaker.setTextColor(color);
+                })
+                .create();
 
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
+        // Show dialog
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        colorPicker.show(fragmentManager, "color_picker");
 
-                        currentColor = selectedColor;
-                        tvMaker.setTextColor(selectedColor);
-                    }
-                })
-                .setPositiveButton("ok", new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        currentColor = selectedColor;
-                        tvMaker.setTextColor(selectedColor);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .build()
-                .show();
+//        ColorPickerDialogBuilder
+//                .with(this)
+//                .setTitle("Choose color")
+//                .initialColor(currentColor)
+//                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                .density(12)
+//
+//                .setOnColorSelectedListener(new OnColorSelectedListener() {
+//                    @Override
+//                    public void onColorSelected(int selectedColor) {
+//
+//
+//                    }
+//                })
+//                .setPositiveButton("ok", new ColorPickerClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                        currentColor = selectedColor;
+//                        tvMaker.setTextColor(selectedColor);
+//                    }
+//                })
+//                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                })
+//                .build()
+//                .show();
     }
 
     //choose text colors - app is created by Sathwara InfoTech
     private void chooseBackgroundColor(boolean supportAlpha) {
-        ColorPickerDialogBuilder
-                .with(this)
-                .setTitle("Choose color")
-                .initialColor(currentColor)
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
+        // Create and show Color Picker dialog
+        ColorPickerDialog colorPicker = new ColorPickerDialog.Builder()
+                .setInitialColor(currentColor) // Set the initial selected color
+                .setColorModel(ColorModel.RGB) // Set color model (ARGB, RGB, AHSV, or HSV)
+                .setColorModelSwitchEnabled(true) // Allow switching between color models
+                .setButtonOkText(android.R.string.ok) // OK button text
+                .setButtonCancelText(android.R.string.cancel) // Cancel button text
+                .onColorSelected(color -> {
+                    // Handle selected color
+                    currentColor = color;
+                    backImage.setVisibility(View.INVISIBLE);
+                    rlBackground.setBackgroundColor(color);
+                })
+                .create();
 
-                .setOnColorSelectedListener(new OnColorSelectedListener() {
-                    @Override
-                    public void onColorSelected(int selectedColor) {
-
-                        currentColor = selectedColor;
-                        backImage.setVisibility(View.INVISIBLE);
-                        rlBackground.setBackgroundColor(selectedColor);
-                    }
-                })
-                .setPositiveButton("ok", new ColorPickerClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        currentColor = selectedColor;
-                        backImage.setVisibility(View.INVISIBLE);
-                        rlBackground.setBackgroundColor(selectedColor);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                })
-                .build()
-                .show();
+        // Show dialog
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        colorPicker.show(fragmentManager, "color_picker");
+//        ColorPickerDialogBuilder
+//                .with(this)
+//                .setTitle("Choose color")
+//                .initialColor(currentColor)
+//                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                .density(12)
+//
+//                .setOnColorSelectedListener(new OnColorSelectedListener() {
+//                    @Override
+//                    public void onColorSelected(int selectedColor) {
+//
+//
+//                    }
+//                })
+//                .setPositiveButton("ok", new ColorPickerClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                        currentColor = selectedColor;
+//                        backImage.setVisibility(View.INVISIBLE);
+//                        rlBackground.setBackgroundColor(selectedColor);
+//                    }
+//                })
+//                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                    }
+//                })
+//                .build()
+//                .show();
     }
 
     public class n implements View.OnClickListener {
@@ -1076,9 +1145,9 @@ public class MakerActivity extends AppCompatActivity {
     }
 
     private void initCheck() {
-        if (prf.loadNightModeState()){
+        if (prf.loadNightModeState()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }

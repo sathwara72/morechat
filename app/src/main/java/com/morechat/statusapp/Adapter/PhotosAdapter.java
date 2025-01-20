@@ -28,12 +28,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.like.LikeButton;
-import com.like.OnLikeListener;
 import com.morechat.statusapp.Model.Quote;
 import com.morechat.statusapp.Utils.Constant;
 import com.morechat.statusapp.Utils.PrefManager;
@@ -279,77 +278,90 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             if (((WallpaperViewHolder) holder).fav.equals("0")) {
                 //finalHolder.favBtn.setImageResource(R.mipmap.not_fav);
-                ((WallpaperViewHolder) holder).favBtn.setLiked(false);
+                ((WallpaperViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_black);
                 ((WallpaperViewHolder) holder).likeText.setText("Like");
 
             }
             if (((WallpaperViewHolder) holder).fav.equals("1")) {
                 //finalHolder.favBtn.setImageResource(R.mipmap.fav);
-                ((WallpaperViewHolder) holder).favBtn.setLiked(true);
+                ((WallpaperViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_red);
                 ((WallpaperViewHolder) holder).likeText.setText("Liked");
 
             }
 
-
-            ((WallpaperViewHolder) holder).favBtn.setOnLikeListener(new OnLikeListener() {
+            ((WallpaperViewHolder) holder).favBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void liked (LikeButton likeButton) {
-
+                public void onClick(View v) {
                     if (picture.getFav().equals("0")) {
                         picture.setFav("1");
                         ((WallpaperViewHolder) holder).db.updateQuote(picture);
-                        ((WallpaperViewHolder) holder).favBtn.setLiked(true);
-                        ((WallpaperViewHolder) holder).likeText.setText("Liked");
-                        startSound();
-                    } else if (picture.getFav().equals("1")) {
-                        picture.setFav("0");
-                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
-                        ((WallpaperViewHolder) holder).favBtn.setLiked(false);
-                        ((WallpaperViewHolder) holder).likeText.setText("Like");
-
-                        startSound();
-                    }
-
-                }
-
-                @Override
-                public void unLiked (LikeButton likeButton) {
-
-                    if (picture.getFav().equals("0")) {
-                        picture.setFav("1");
-                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
-                        ((WallpaperViewHolder) holder).favBtn.setLiked(true);
+                        ((WallpaperViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_red);
                         ((WallpaperViewHolder) holder).likeText.setText("Liked");
                     } else if (picture.getFav().equals("1")) {
                         picture.setFav("0");
                         ((WallpaperViewHolder) holder).db.updateQuote(picture);
-                        ((WallpaperViewHolder) holder).favBtn.setLiked(false);
+                        ((WallpaperViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_black);
                         ((WallpaperViewHolder) holder).likeText.setText("Like");
-                        startSound();
                     }
-
+                    startSound();
                 }
             });
+//            ((WallpaperViewHolder) holder).favBtn.setOnLikeListener(new OnLikeListener() {
+//                @Override
+//                public void liked (LikeButton likeButton) {
+//
+//                    if (picture.getFav().equals("0")) {
+//                        picture.setFav("1");
+//                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
+//                        ((WallpaperViewHolder) holder).favBtn.setLiked(true);
+//                        ((WallpaperViewHolder) holder).likeText.setText("Liked");
+//                        startSound();
+//                    } else if (picture.getFav().equals("1")) {
+//                        picture.setFav("0");
+//                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
+//                        ((WallpaperViewHolder) holder).favBtn.setLiked(false);
+//                        ((WallpaperViewHolder) holder).likeText.setText("Like");
+//
+//                        startSound();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void unLiked (LikeButton likeButton) {
+//
+//                    if (picture.getFav().equals("0")) {
+//                        picture.setFav("1");
+//                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
+//                        ((WallpaperViewHolder) holder).favBtn.setLiked(true);
+//                        ((WallpaperViewHolder) holder).likeText.setText("Liked");
+//                    } else if (picture.getFav().equals("1")) {
+//                        picture.setFav("0");
+//                        ((WallpaperViewHolder) holder).db.updateQuote(picture);
+//                        ((WallpaperViewHolder) holder).favBtn.setLiked(false);
+//                        ((WallpaperViewHolder) holder).likeText.setText("Like");
+//                        startSound();
+//                    }
+//
+//                }
+//            });
 
             //when you press save button
-            ((WallpaperViewHolder) holder).ll_quote_save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick (View v) {
+            ((WallpaperViewHolder) holder).ll_quote_save.setOnClickListener(v -> {
 
 
-                    Bitmap bitmap = Bitmap.createBitmap(((WallpaperViewHolder) holder).relativeLayout.getWidth(), ((WallpaperViewHolder) holder).relativeLayout.getHeight(),
-                        Bitmap.Config.ARGB_8888);
-                    Canvas canvas = new Canvas(bitmap);
-                    ((WallpaperViewHolder) holder).relativeLayout.draw(canvas);
+                Bitmap bitmap = Bitmap.createBitmap(((WallpaperViewHolder) holder).relativeLayout.getWidth(), ((WallpaperViewHolder) holder).relativeLayout.getHeight(),
+                    Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                ((WallpaperViewHolder) holder).relativeLayout.draw(canvas);
+                YmgTools.saveImage(context,bitmap,"best_status_"+System.currentTimeMillis());
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     YmgTools.saveImage(context,bitmap,"best_status_"+System.currentTimeMillis());
-                    if (ContextCompat.checkSelfPermission(context,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        YmgTools.saveImage(context,bitmap,"best_status_"+System.currentTimeMillis());
-                    } else {
-                        requestStoragePermission();
-                    }
-                    adsManager.showInterstitialAd();
+                } else {
+                    requestStoragePermission();
                 }
+                adsManager.showInterstitialAd();
             });
 
             //When You Press copy Botton
@@ -565,60 +577,92 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
-
             if (((ADViewHolder) holder).fav.equals("0")) {
                 //finalHolder.favBtn.setImageResource(R.mipmap.not_fav);
-                ((ADViewHolder) holder).favBtn.setLiked(false);
+                ((ADViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_black);
                 ((ADViewHolder) holder).likeText.setText("Like");
 
             }
             if (((ADViewHolder) holder).fav.equals("1")) {
                 //finalHolder.favBtn.setImageResource(R.mipmap.fav);
-                ((ADViewHolder) holder).favBtn.setLiked(true);
+                ((ADViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_red);
                 ((ADViewHolder) holder).likeText.setText("Liked");
 
             }
 
-
-            ((ADViewHolder) holder).favBtn.setOnLikeListener(new OnLikeListener() {
+            ((ADViewHolder) holder).favBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void liked (LikeButton likeButton) {
-
+                public void onClick(View v) {
                     if (picture.getFav().equals("0")) {
                         picture.setFav("1");
                         ((ADViewHolder) holder).db.updateQuote(picture);
-                        ((ADViewHolder) holder).favBtn.setLiked(true);
-                        ((ADViewHolder) holder).likeText.setText("Liked");
-                        startSound();
-                    } else if (picture.getFav().equals("1")) {
-                        picture.setFav("0");
-                        ((ADViewHolder) holder).db.updateQuote(picture);
-                        ((ADViewHolder) holder).favBtn.setLiked(false);
-                        ((ADViewHolder) holder).likeText.setText("Like");
-
-                        startSound();
-                    }
-
-                }
-
-                @Override
-                public void unLiked (LikeButton likeButton) {
-
-                    if (picture.getFav().equals("0")) {
-                        picture.setFav("1");
-                        ((ADViewHolder) holder).db.updateQuote(picture);
-                        ((ADViewHolder) holder).favBtn.setLiked(true);
+                        ((ADViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_red);
                         ((ADViewHolder) holder).likeText.setText("Liked");
                     } else if (picture.getFav().equals("1")) {
                         picture.setFav("0");
                         ((ADViewHolder) holder).db.updateQuote(picture);
-                        ((ADViewHolder) holder).favBtn.setLiked(false);
+                        ((ADViewHolder) holder).favBtn.setImageResource(R.drawable.ic_menu_heart_black);
                         ((ADViewHolder) holder).likeText.setText("Like");
-                        startSound();
                     }
-
+                    startSound();
                 }
             });
+
+
+//
+//            if (((ADViewHolder) holder).fav.equals("0")) {
+//                //finalHolder.favBtn.setImageResource(R.mipmap.not_fav);
+//                ((ADViewHolder) holder).favBtn.setLiked(false);
+//                ((ADViewHolder) holder).likeText.setText("Like");
+//
+//            }
+//            if (((ADViewHolder) holder).fav.equals("1")) {
+//                //finalHolder.favBtn.setImageResource(R.mipmap.fav);
+//                ((ADViewHolder) holder).favBtn.setLiked(true);
+//                ((ADViewHolder) holder).likeText.setText("Liked");
+//
+//            }
+//
+//
+//            ((ADViewHolder) holder).favBtn.setOnLikeListener(new OnLikeListener() {
+//                @Override
+//                public void liked (LikeButton likeButton) {
+//
+//                    if (picture.getFav().equals("0")) {
+//                        picture.setFav("1");
+//                        ((ADViewHolder) holder).db.updateQuote(picture);
+//                        ((ADViewHolder) holder).favBtn.setLiked(true);
+//                        ((ADViewHolder) holder).likeText.setText("Liked");
+//                        startSound();
+//                    } else if (picture.getFav().equals("1")) {
+//                        picture.setFav("0");
+//                        ((ADViewHolder) holder).db.updateQuote(picture);
+//                        ((ADViewHolder) holder).favBtn.setLiked(false);
+//                        ((ADViewHolder) holder).likeText.setText("Like");
+//
+//                        startSound();
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void unLiked (LikeButton likeButton) {
+//
+//                    if (picture.getFav().equals("0")) {
+//                        picture.setFav("1");
+//                        ((ADViewHolder) holder).db.updateQuote(picture);
+//                        ((ADViewHolder) holder).favBtn.setLiked(true);
+//                        ((ADViewHolder) holder).likeText.setText("Liked");
+//                    } else if (picture.getFav().equals("1")) {
+//                        picture.setFav("0");
+//                        ((ADViewHolder) holder).db.updateQuote(picture);
+//                        ((ADViewHolder) holder).favBtn.setLiked(false);
+//                        ((ADViewHolder) holder).likeText.setText("Like");
+//                        startSound();
+//                    }
+//
+//                }
+//            });
 
             //when you press save button
 
@@ -770,7 +814,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         RelativeLayout relativeLayout;
         LinearLayout ll_quote_save, ll_copy_quote, ll_quote_share;
         ImageView imgIcon;
-        LikeButton favBtn;
+        AppCompatImageView favBtn;
         String fav;
         View darkView;
         private DataBaseHandler db;
@@ -817,7 +861,7 @@ public class PhotosAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private ImageView watermarkIcon;
         LinearLayout ll_quote_save, ll_copy_quote, ll_quote_share;
         ImageView imgIcon;
-        LikeButton favBtn;
+        AppCompatImageView favBtn;
         String fav;
         View darkView;
         private DataBaseHandler db;
