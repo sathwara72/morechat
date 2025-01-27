@@ -215,6 +215,7 @@ public class MakerActivity extends AppCompatActivity {
                 SeekBar seekBar = (SeekBar) findViewById(R.id.textSizeSeekbar);
                 seekBar.setProgress(b0);
                 tvMaker.setTextSize((float) b0);
+                tvMaker1.setTextSize((float) b0);
                 seekBar.setOnSeekBarChangeListener(new seekbaralert());
                 ((Button) findViewById(R.id.textSizeDoneButton)).setOnClickListener(new n());
 
@@ -288,96 +289,112 @@ public class MakerActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a2);
+                        tvMaker1.setTypeface(a2);
                     }
                 });
                 textView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a3);
+                        tvMaker1.setTypeface(a3);
                     }
                 });
                 textView3.setOnClickListener(new View.OnClickListener() {
                     @Override // app is created by Sathwara InfoTech
                     public void onClick(View v) {
                         tvMaker.setTypeface(a4);
+                        tvMaker1.setTypeface(a4);
                     }
                 });
                 textView4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a5);
+                        tvMaker1.setTypeface(a5);
                     }
                 });
                 textView5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a6);
+                        tvMaker1.setTypeface(a6);
                     }
                 });
                 textView6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a7);
+                        tvMaker1.setTypeface(a7);
                     }
                 });
                 textView7.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a8);
+                        tvMaker1.setTypeface(a8);
                     }
                 });
                 textView8.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a9);
+                        tvMaker1.setTypeface(a9);
                     }
                 });
                 textView9.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a10);
+                        tvMaker1.setTypeface(a10);
                     }
                 });
                 textView10.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a11);
+                        tvMaker1.setTypeface(a11);
                     }
                 });
                 textView11.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a12);
+                        tvMaker1.setTypeface(a12);
                     }
                 });
                 textView12.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a13);
+                        tvMaker1.setTypeface(a13);
                     }
                 });
                 textView13.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a14);
+                        tvMaker1.setTypeface(a14);
                     }
                 });
                 textView14.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a15);
+                        tvMaker1.setTypeface(a15);
                     }
                 });
                 textView15.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a16);
+                        tvMaker1.setTypeface(a16);
                     }
                 });
                 textView16.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         tvMaker.setTypeface(a17);
+                        tvMaker1.setTypeface(a17);
                     }
                 });
                 button.setOnClickListener(new View.OnClickListener() {
@@ -398,12 +415,15 @@ public class MakerActivity extends AppCompatActivity {
                 ImageView imageView = (ImageView) findViewById(R.id.textAligmentImageView);
                 if (String.valueOf(tvMaker.getGravity()).equals("17")) {
                     tvMaker.setGravity(16);
+                    tvMaker1.setGravity(16);
                     i2 = R.drawable.ic_menu_text_align;
                 } else if (String.valueOf(tvMaker.getGravity()).equals("8388627")) {
                     tvMaker.setGravity(21);
+                    tvMaker1.setGravity(21);
                     i2 = R.drawable.ic_menu_text_align;
                 } else if (String.valueOf(tvMaker.getGravity()).equals("21")) {
                     tvMaker.setGravity(17);
+                    tvMaker1.setGravity(17);
                     i2 = R.drawable.ic_menu_text_align;
                 } else {
                     return;
@@ -427,6 +447,7 @@ public class MakerActivity extends AppCompatActivity {
                 seekBar3.setProgress(pTop / 2);
                 seekBar4.setProgress(pBottom / 2);
                 tvMaker.setPadding(pLeft, pRight, pTop, pBottom);
+                tvMaker1.setPadding(pLeft, pRight, pTop, pBottom);
                 seekBar.setOnSeekBarChangeListener(new paddingLeft());
                 seekBar2.setOnSeekBarChangeListener(new paddingRight());
                 seekBar3.setOnSeekBarChangeListener(new paddingTop());
@@ -445,6 +466,7 @@ public class MakerActivity extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     pLeft = progress * 2;
                     tvMaker.setPadding(pLeft, pRight, pTop, pBottom);
+                    tvMaker1.setPadding(pLeft, pRight, pTop, pBottom);
 
                 }
 
@@ -464,6 +486,7 @@ public class MakerActivity extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     pRight = progress * 2;
                     tvMaker.setPadding(pLeft, pRight, pTop, pBottom);
+                    tvMaker1.setPadding(pLeft, pRight, pTop, pBottom);
 
                 }
 
@@ -483,6 +506,7 @@ public class MakerActivity extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     pTop = progress * 2;
                     tvMaker.setPadding(pLeft, pRight, pTop, pBottom);
+                    tvMaker1.setPadding(pLeft, pRight, pTop, pBottom);
 
                 }
 
@@ -502,6 +526,7 @@ public class MakerActivity extends AppCompatActivity {
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     pBottom = progress * 2;
                     tvMaker.setPadding(pLeft, pRight, pTop, pBottom);
+                    tvMaker1.setPadding(pLeft, pRight, pTop, pBottom);
 
                 }
 
@@ -1126,9 +1151,11 @@ public class MakerActivity extends AppCompatActivity {
         public void onProgressChanged(SeekBar seekBar, int i, boolean z) {
             if (i < 10) {
                 tvMaker.setTextSize(15.0f);
+                tvMaker1.setTextSize(15.0f);
                 return;
             }
             tvMaker.setTextSize((float) i);
+            tvMaker1.setTextSize((float) i);
             b0 = i;
         }
 
