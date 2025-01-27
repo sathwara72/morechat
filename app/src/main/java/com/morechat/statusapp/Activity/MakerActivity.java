@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -38,6 +39,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
@@ -68,9 +70,10 @@ public class MakerActivity extends AppCompatActivity {
     private int CAMERA_PERMISSION_CODE = 1;
     private int STORAGE_PERMISSION_CODE = 1;
     CardView tvPrime;
-    EditText tvMaker;
+    EditText tvMaker,tvMaker1;
     RelativeLayout rlBackground;
-    ImageView backImage;
+    AppCompatButton btnHeaderTitle,btnLite,btnDark;
+//    ImageView backImage;
     CardView tvEsize, tvEfont, cvPadding, cvGradiant, cvOpacity;
     int shade = 0;
     int b0 = 20;
@@ -90,8 +93,8 @@ public class MakerActivity extends AppCompatActivity {
     PrefManager prf;
     private AdsManager adsManager;
     private AdsPref adsPref;
-    private RelativeLayout watermarkRelative;
-    private ImageView watermarkIcon;
+//    private RelativeLayout watermarkRelative;
+//    private ImageView watermarkIcon;
     private Dialog dialog;
 
     public static final int REQUEST_IMAGE = 100;
@@ -125,8 +128,9 @@ public class MakerActivity extends AppCompatActivity {
 
         //main
         rlBackground = findViewById(R.id.idForSaving);
-        backImage = findViewById(R.id.imageView);
+//        backImage = findViewById(R.id.imageView);
         tvMaker = findViewById(R.id.editText);
+        tvMaker1 = findViewById(R.id.editText1);
         tvSize = findViewById(R.id.textSizeClickCardView);
         tvColor = findViewById(R.id.textColorClickCardView);
         tvFont = findViewById(R.id.textFontClickCardView);
@@ -141,25 +145,57 @@ public class MakerActivity extends AppCompatActivity {
         tvSaveImage = findViewById(R.id.saveClickCardView);
         tvShare = findViewById(R.id.shareClickCardView);
         tvPrime = findViewById(R.id.aboutClickCardView);
-        watermarkRelative = findViewById(R.id.watermarkRelative);
-        watermarkIcon = findViewById(R.id.watermarkIcon);
+        btnHeaderTitle = findViewById(R.id.btnHeaderTitle);
+        btnLite = findViewById(R.id.btnLite);
+        btnDark = findViewById(R.id.btnDark);
+//        watermarkRelative = findViewById(R.id.watermarkRelative);
+//        watermarkIcon = findViewById(R.id.watermarkIcon);
 
 
-        String quote = getIntent().getExtras().getString("quote");
-        imagesIndex = getIntent().getExtras().getInt("image");
-        if (quote != null) {
-            tvMaker.setText(quote);
-            if (imagesIndex == 0) {
-                backImage.setVisibility(View.GONE);
-            } else {
-                loadImages();
-                viewLayout.setVisibility(View.VISIBLE);
-                tvMaker.setTextColor(getResources().getColor(R.color.white));
+//        String quote = getIntent().getExtras().getString("quote");
+//        imagesIndex = getIntent().getExtras().getInt("image");
+//        if (quote != null) {
+//            tvMaker.setText(quote);
+//            if (imagesIndex == 0) {
+////                backImage.setVisibility(View.GONE);
+//            } else {
+//                loadImages();
+//                viewLayout.setVisibility(View.VISIBLE);
+//                tvMaker.setTextColor(getResources().getColor(R.color.white));
+//                tvMaker1.setTextColor(getResources().getColor(R.color.white));
+//            }
+//        } else {
+//            tvMaker.setText("");
+//        }
+
+        btnHeaderTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tvMaker1.getVisibility() == View.VISIBLE){
+                    tvMaker1.setVisibility(View.GONE);
+                }else {
+                    tvMaker1.setVisibility(View.VISIBLE);
+                }
             }
-        } else {
-            tvMaker.setText("");
+        });
 
-        }
+        btnLite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlBackground.setBackgroundColor((Color.parseColor("#FFFFFF")));
+                tvMaker.setTextColor((Color.parseColor("#000000")));
+                tvMaker1.setTextColor((Color.parseColor("#000000")));
+            }
+        });
+
+        btnDark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rlBackground.setBackgroundColor((Color.parseColor("#000000")));
+                tvMaker.setTextColor((Color.parseColor("#FFFFFF")));
+                tvMaker1.setTextColor((Color.parseColor("#FFFFFF")));
+            }
+        });
 
         //editText
         tvMaker.setOnClickListener(new View.OnClickListener() {
@@ -651,7 +687,7 @@ public class MakerActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         cvGradiant.setVisibility(View.INVISIBLE);
-                        backImage.setVisibility(View.INVISIBLE);
+//                        backImage.setVisibility(View.INVISIBLE);
 
                     }
                 });
@@ -684,17 +720,17 @@ public class MakerActivity extends AppCompatActivity {
                 ((SeekBar) findViewById(R.id.imageOpacitySeekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if (backImage.getVisibility() != View.VISIBLE) {
-                            seekBar.setClickable(false);
-                            Toast.makeText(MakerActivity.this, "select image first", Toast.LENGTH_SHORT).show();
-                        } else if (progress < 5) {
-                            backImage.setAlpha(1.0f);
-                            backImage.setColorFilter((ColorFilter) null);
-                        } else if (progress <= 95) {
-                            float floatValue = Float.valueOf("." + String.valueOf(progress)).floatValue();
-                            backImage.setColorFilter(R.color.black);
-                            backImage.setAlpha(floatValue);
-                        }
+//                        if (backImage.getVisibility() != View.VISIBLE) {
+//                            seekBar.setClickable(false);
+//                            Toast.makeText(MakerActivity.this, "select image first", Toast.LENGTH_SHORT).show();
+//                        } else if (progress < 5) {
+//                            backImage.setAlpha(1.0f);
+//                            backImage.setColorFilter((ColorFilter) null);
+//                        } else if (progress <= 95) {
+//                            float floatValue = Float.valueOf("." + String.valueOf(progress)).floatValue();
+//                            backImage.setColorFilter(R.color.black);
+//                            backImage.setAlpha(floatValue);
+//                        }
                     }
 
                     @Override
@@ -754,12 +790,12 @@ public class MakerActivity extends AppCompatActivity {
             }
         });
 
-        watermarkRelative.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showRemoveDialog();
-            }
-        });
+//        watermarkRelative.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showRemoveDialog();
+//            }
+//        });
 
         toolbar.setNavigationOnClickListener(v -> onBackPress());
 
@@ -783,7 +819,7 @@ public class MakerActivity extends AppCompatActivity {
         mbtnWatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adsManager.showRewardedAd(MakerActivity.this, watermarkRelative, watermarkIcon, dialog);
+//                adsManager.showRewardedAd(MakerActivity.this, watermarkRelative, watermarkIcon, dialog);
             }
         });
         mbtnNo.setOnClickListener(new View.OnClickListener() {
@@ -901,10 +937,10 @@ public class MakerActivity extends AppCompatActivity {
 
     private void loadProfile(String url) {
         Log.d(TAG, "Image cache path: " + url);
-        backImage.setVisibility(View.VISIBLE);
-        Glide.with(this)
-                .load(url)
-                .into(backImage);
+//        backImage.setVisibility(View.VISIBLE);
+//        Glide.with(this)
+//                .load(url)
+//                .into(backImage);
     }
 
     private void loadImages() {
@@ -952,7 +988,7 @@ public class MakerActivity extends AppCompatActivity {
         images[39] = R.drawable.gradient10;
         images[40] = R.drawable.img31;
 
-        backImage.setBackgroundResource(images[imagesIndex]);
+//        backImage.setBackgroundResource(images[imagesIndex]);
     }
 
 
@@ -988,6 +1024,7 @@ public class MakerActivity extends AppCompatActivity {
                     // Handle selected color
                     currentColor = color;
                     tvMaker.setTextColor(color);
+                    tvMaker1.setTextColor(color);
                 })
                 .create();
 
@@ -1037,7 +1074,7 @@ public class MakerActivity extends AppCompatActivity {
                 .onColorSelected(color -> {
                     // Handle selected color
                     currentColor = color;
-                    backImage.setVisibility(View.INVISIBLE);
+//                    backImage.setVisibility(View.INVISIBLE);
                     rlBackground.setBackgroundColor(color);
                 })
                 .create();
