@@ -789,9 +789,10 @@ public class MakerActivity extends AppCompatActivity {
                 rlBackground.draw(canvas);
                 YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
                 if (ContextCompat.checkSelfPermission(MakerActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
                     YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
                 } else {
+                    requestStoragePermission();
                     Toast.makeText(MakerActivity.this, "Please Allow Storage Permission", Toast.LENGTH_SHORT).show();
                 }
                 adsManager.showInterstitialAd();
@@ -925,25 +926,58 @@ public class MakerActivity extends AppCompatActivity {
     }
 
     private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale((Activity) this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Permission needed")
-                    .setMessage("This permission is needed")
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            ActivityCompat.requestPermissions((Activity) MakerActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-                        }
-                    })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).create().show();
-
-        } else {
-            ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // Android 33+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_MEDIA_IMAGES)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is needed to access media files.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MakerActivity.this,
+                                        new String[]{Manifest.permission.READ_MEDIA_IMAGES,
+                                                Manifest.permission.READ_MEDIA_VIDEO,
+                                                Manifest.permission.READ_MEDIA_AUDIO},
+                                        STORAGE_PERMISSION_CODE);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_MEDIA_IMAGES,
+                                Manifest.permission.READ_MEDIA_VIDEO,
+                                Manifest.permission.READ_MEDIA_AUDIO},
+                        STORAGE_PERMISSION_CODE);
+            }
+        } else { // For Android 32 and below
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Permission needed")
+                        .setMessage("This permission is needed to access media files.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MakerActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        STORAGE_PERMISSION_CODE);
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).create().show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        STORAGE_PERMISSION_CODE);
+            }
         }
     }
 
