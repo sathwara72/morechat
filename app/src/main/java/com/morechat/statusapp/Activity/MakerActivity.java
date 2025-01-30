@@ -790,6 +790,8 @@ public class MakerActivity extends AppCompatActivity {
                 YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
                 if (ContextCompat.checkSelfPermission(MakerActivity.this,
                         Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+                    com.ymg.ymgdevelopers.PrefManager prefManager = new com.ymg.ymgdevelopers.PrefManager(getApplicationContext());
+                    prefManager.setString("dev","YMG-Developers");
                     YmgTools.saveImage(MakerActivity.this, bitmap, "best_status_" + System.currentTimeMillis());
                 } else {
                     requestStoragePermission();
